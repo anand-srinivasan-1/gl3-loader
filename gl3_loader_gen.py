@@ -59,12 +59,22 @@ if len(sys.argv) != 2:
 platform = sys.argv[1]
 
 def do_platform_x11():
-    f = open('gl3.h', 'w')
+    f = open('gl3-x11.h', 'w')
+    f.write('''#ifndef _gl3_x11_h_
+#define _gl3_x11_h_
+
+''')
     for func_entry in funcs:
         f.write(func_entry[0] + ' gl' + func_entry[1] + func_entry[2] + ';\n')
+    f.write('''
+#endif /* _gl3_x11_h_ */''')
 
 def do_platform_win32():
-    f = open('gl3.h', 'w')
+    f = open('gl3-win32.h', 'w')
+    f.write('''#ifndef _gl3_win32_h_
+#define _gl3_win32_h_
+
+''')
     for func_entry in funcs:
         f.write('typedef ' + func_entry[0] + ' (*PFN_gl' + func_entry[1] + ')' + func_entry[2] + ';\n')
     f.write('\n')
@@ -78,9 +88,10 @@ def do_platform_win32():
 typedef (*PFN_wglCreateContextAttribsARB)(HDC hDC, HGLRC hShareContext, const int* attribList);
 PFN_wglCreateContextAttribsARB _wglCreateContextAttribsARB;
 #define wglCreateContextAttribsARB _wglCreateContextAttribsARB
-''')
+
+#endif /* _gl3_win32_h_ */''')
     # why does only windows need this
-    f = open('gl3.c', 'w')
+    f = open('gl3-win32.c', 'w')
     f.write('''#include "gl3.h"
 
 void* GetProc(char *name) {
