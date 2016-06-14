@@ -58,12 +58,18 @@ if len(sys.argv) != 2:
 
 platform = sys.argv[1]
 
+def do_write_types_and_constants(_file):
+    hdr = open('gl3_consts_and_types.h')
+    _file.write(hdr.read())
+
 def do_platform_x11():
     f = open('gl3-x11.h', 'w')
     f.write('''#ifndef _gl3_x11_h_
 #define _gl3_x11_h_
 
 ''')
+    do_write_types_and_constants(f)
+    f.write('\n')
     for func_entry in funcs:
         f.write(func_entry[0] + ' gl' + func_entry[1] + func_entry[2] + ';\n')
     f.write('''
@@ -75,6 +81,8 @@ def do_platform_win32():
 #define _gl3_win32_h_
 
 ''')
+    do_write_types_and_constants(f)
+    f.write('\n')
     for func_entry in funcs:
         f.write('typedef ' + func_entry[0] + ' (*PFN_gl' + func_entry[1] + ')' + func_entry[2] + ';\n')
     f.write('\n')
