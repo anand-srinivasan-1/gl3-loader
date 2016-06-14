@@ -59,7 +59,7 @@ if len(sys.argv) != 2:
 platform = sys.argv[1]
 
 def do_write_types_and_constants(_file):
-    hdr = open('gl3_consts_and_types.h')
+    hdr = open('gl3_consts_and_types.h', 'r')
     _file.write(hdr.read())
 
 def do_platform_x11():
