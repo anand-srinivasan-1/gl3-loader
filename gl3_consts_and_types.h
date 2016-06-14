@@ -1,178 +1,23 @@
-/*
- * this part copied from https://www.khronos.org/registry/egl/api/KHR/khrplatform.h,
- * so i have to include their license
- *
- * Copyright (c) 2008-2009 The Khronos Group Inc.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a
- * copy of this software and/or associated documentation files (the
- * "Materials"), to deal in the Materials without restriction, including
- * without limitation the rights to use, copy, modify, merge, publish,
- * distribute, sublicense, and/or sell copies of the Materials, and to
- * permit persons to whom the Materials are furnished to do so, subject to
- * the following conditions:
- *
- * The above copyright notice and this permission notice shall be included
- * in all copies or substantial portions of the Materials.
- *
- * THE MATERIALS ARE PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
- * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
- * IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
- * CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
- * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
- * MATERIALS OR THE USE OR OTHER DEALINGS IN THE MATERIALS.
- */
-
-#if (defined(__STDC_VERSION__) && __STDC_VERSION__ >= 199901L) || defined(__GNUC__) || defined(__SCO__) || defined(__USLC__)
-
-/*
- * Using <stdint.h>
- */
 #include <stdint.h>
-typedef int32_t                 khronos_int32_t;
-typedef uint32_t                khronos_uint32_t;
-typedef int64_t                 khronos_int64_t;
-typedef uint64_t                khronos_uint64_t;
-#define KHRONOS_SUPPORT_INT64   1
-#define KHRONOS_SUPPORT_FLOAT   1
-
-#elif defined(__VMS ) || defined(__sgi)
-
-/*
- * Using <inttypes.h>
- */
-#include <inttypes.h>
-typedef int32_t                 khronos_int32_t;
-typedef uint32_t                khronos_uint32_t;
-typedef int64_t                 khronos_int64_t;
-typedef uint64_t                khronos_uint64_t;
-#define KHRONOS_SUPPORT_INT64   1
-#define KHRONOS_SUPPORT_FLOAT   1
-
-#elif defined(_WIN32) && !defined(__SCITECH_SNAP__)
-
-/*
- * Win32
- */
-typedef __int32                 khronos_int32_t;
-typedef unsigned __int32        khronos_uint32_t;
-typedef __int64                 khronos_int64_t;
-typedef unsigned __int64        khronos_uint64_t;
-#define KHRONOS_SUPPORT_INT64   1
-#define KHRONOS_SUPPORT_FLOAT   1
-
-#elif defined(__sun__) || defined(__digital__)
-
-/*
- * Sun or Digital
- */
-typedef int                     khronos_int32_t;
-typedef unsigned int            khronos_uint32_t;
-#if defined(__arch64__) || defined(_LP64)
-typedef long int                khronos_int64_t;
-typedef unsigned long int       khronos_uint64_t;
-#else
-typedef long long int           khronos_int64_t;
-typedef unsigned long long int  khronos_uint64_t;
-#endif /* __arch64__ */
-#define KHRONOS_SUPPORT_INT64   1
-#define KHRONOS_SUPPORT_FLOAT   1
-
-#elif 0
-
-/*
- * Hypothetical platform with no float or int64 support
- */
-typedef int                     khronos_int32_t;
-typedef unsigned int            khronos_uint32_t;
-#define KHRONOS_SUPPORT_INT64   0
-#define KHRONOS_SUPPORT_FLOAT   0
-
-#else
-
-/*
- * Generic fallback
- */
-#include <stdint.h>
-typedef int32_t                 khronos_int32_t;
-typedef uint32_t                khronos_uint32_t;
-typedef int64_t                 khronos_int64_t;
-typedef uint64_t                khronos_uint64_t;
-#define KHRONOS_SUPPORT_INT64   1
-#define KHRONOS_SUPPORT_FLOAT   1
-
-#endif
-
-
-/*
- * Types that are (so far) the same on all platforms
- */
-typedef signed   char          khronos_int8_t;
-typedef unsigned char          khronos_uint8_t;
-typedef signed   short int     khronos_int16_t;
-typedef unsigned short int     khronos_uint16_t;
-
-/*
- * Types that differ between LLP64 and LP64 architectures - in LLP64,
- * pointers are 64 bits, but 'long' is still 32 bits. Win64 appears
- * to be the only LLP64 architecture in current use.
- */
-#ifdef _WIN64
-typedef signed   long long int khronos_intptr_t;
-typedef unsigned long long int khronos_uintptr_t;
-typedef signed   long long int khronos_ssize_t;
-typedef unsigned long long int khronos_usize_t;
-#else
-typedef signed   long  int     khronos_intptr_t;
-typedef unsigned long  int     khronos_uintptr_t;
-typedef signed   long  int     khronos_ssize_t;
-typedef unsigned long  int     khronos_usize_t;
-#endif
-
-#if KHRONOS_SUPPORT_FLOAT
-/*
- * Float type
- */
-typedef          float         khronos_float_t;
-#endif
-
-#if KHRONOS_SUPPORT_INT64
-/* Time types
- *
- * These types can be used to represent a time interval in nanoseconds or
- * an absolute Unadjusted System Time.  Unadjusted System Time is the number
- * of nanoseconds since some arbitrary system event (e.g. since the last
- * time the system booted).  The Unadjusted System Time is an unsigned
- * 64 bit value that wraps back to 0 every 584 years.  Time intervals
- * may be either signed or unsigned.
- */
-typedef khronos_uint64_t       khronos_utime_nanoseconds_t;
-typedef khronos_int64_t        khronos_stime_nanoseconds_t;
-#endif
-
-
-
-
-
 
 typedef void             GLvoid;
-typedef char             GLchar;
-typedef unsigned int     GLenum;
-typedef unsigned char    GLboolean;
-typedef unsigned int     GLbitfield;
-typedef khronos_int8_t   GLbyte;
-typedef short            GLshort;
-typedef int              GLint;
-typedef int              GLsizei;
-typedef khronos_uint8_t  GLubyte;
-typedef unsigned short   GLushort;
-typedef unsigned int     GLuint;
-typedef khronos_float_t  GLfloat;
-typedef khronos_float_t  GLclampf;
-typedef khronos_int32_t  GLfixed;
-typedef khronos_intptr_t GLintptr;
-typedef khronos_ssize_t  GLsizeiptr;
+typedef uint8_t          GLboolean;
+typedef int8_t           GLbyte;
+typedef uint8_t          GLubyte;
+typedef int8_t           GLchar;
+typedef int16_t          GLshort;
+typedef uint16_t         GLushort;
+typedef int32_t          GLint;
+typedef uint32_t         GLuint;
+// typedef ??? GLfixed (32 bits)
+typedef int32_t          GLsizei;
+typedef uint32_t         GLenum;
+typedef int32_t*         GLintptr;
+typedef uint32_t*        GLsizeiptr;
+typedef uint32_t         GLbitfield;
+typedef float            GLfloat; // 32 bits
+typedef double           GLdouble; // 64 bits
+typedef float            GLclampf; // 32
 
 /* ClearBufferMask */
 #define GL_DEPTH_BUFFER_BIT                              0x00000100
