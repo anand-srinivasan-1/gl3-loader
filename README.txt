@@ -1,0 +1,1 @@
+This is a small OpenGL 3 loader generator. Executables that use OpenGL can't simply link to libGL.so or some analog, so there must be a small bit of code that gets a pointer to every OpenGL function exposed in libGL.so. This script generates C code with minimal dependencies, allowing the creation of applications that use OpenGL 3.
